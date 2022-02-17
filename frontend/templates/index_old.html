@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    {% load static %}
+    <!-- Loading CSS from static -->
+    <link rel="stylesheet" href="{% static 'annpr/style.css' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>ANNPR WEB</title>
+
+    </head>
+    <body>
+        <div class="container text-center">
+            <h1>ANNPR</h1>
+        </div>
+        <div class="container mt-5">  
+            <div class="row">
+                <div class="col-sm "> 
+                    <h1> Input the Media </h1>
+                    <hr>      
+                {% block content %}
+                <form method = "post" action="{% url 'add' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Upload</button>
+                </form>
+                </div> 
+                <div class="number col-sm">
+                    <div class="header">
+                        <h1><center> RECORD </center></h1>
+                        <hr>
+                        <div class="scroll mt-5 text-left">{% comment %} displays all the number plates from database {% endcomment %}
+                            <ul class="list-group">
+                                <li class="list-group-item active text-center font-weight-bold">Number List</li>
+                            {% for nums in numb %}
+                                <li class="list-group-item text-center">{{nums.number}} EntryDate:<i>{{nums.entrydate}}</li>
+                            {% endfor %}
+                            </ul>
+                    </div>
+                 {% comment %} <h1> Records </h1>
+                 <hr>   
+
+                {% comment %} displays all the number plates from database {% endcomment %}
+                {% comment %} {% for nums in numb %}
+                   <li> 
+                   <i>{{nums.number}}</i>EntryDate:   <i>{{nums.entrydate}}</i>
+                   <hr>
+                   </li> {% endcomment %}
+                    
+                {% comment %} {% endfor %} {% endcomment %}
+                
+                {% endblock%}
+
+                </div>
+            </div>
+        </div>
+        <!--JS related to Bootstrap-->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
+        <!--Custom JS file --> 
+       <script src="{% static 'annpr/main.js' %}"></script>
+    </body>
+</html>

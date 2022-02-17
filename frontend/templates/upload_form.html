@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid upload-form">
+    {% if title == 'Image' %}
+    <form  class="bg-white p-5 rounded" method = "post" action="{% url 'upload_image' %}" enctype="multipart/form-data">
+    {% else %}
+    <form  class="bg-white p-5 rounded" method = "post" action="{% url 'upload_video' %}" enctype="multipart/form-data"> 
+    {% endif %}
+    {% csrf_token %}
+    <label for="exampleFormControlFile1" class="form-title">Select {{ title  }} </label>
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success mt-3 ">Upload {{ title }} </button>
+</form>
+</div>
+{% endblock  %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container-fluid">
+    <div class="row mt-5">
+        <div class="col-md-8">
+            <h3 class>Original:</h3>
+            <img
+                src="{{image.url}}"
+                alt="original_image"
+                width="500"
+                height="500"
+            />
+            <h3 class="mt-5">Detections:</h3>
+            <img
+                src="/detected_images/{{filename}}"
+                alt="original_image"
+                width="500"
+                height="500"
+            />
+        </div>
+
+        <div class="col-md-4">
+            <h4>Number Plate Detected: </h4>
+            <p>{{current_number}}</p>
+            {% include 'includes/record_table.html' %} 
+        </div>
+    </div>
+</div>
+{% endblock %}

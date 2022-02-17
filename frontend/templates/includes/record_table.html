@@ -1,0 +1,19 @@
+<h3> All Records:</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Number Plate</th>
+            <th scope="col">Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for number_plate in number_plates %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{number_plate.number}}</td>
+            <td>{{number_plate.entrydate}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

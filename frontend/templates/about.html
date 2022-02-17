@@ -1,0 +1,106 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container about-content">
+    <div class="row">
+        <h3>ABOUT ANNPR</h3>
+
+        <p>
+            ANNPR(Automatic Nepali Number Plate Recognition System) is a system
+            designed to detect Nepali number plates from images or videos and
+            then to recognize the number plate. In this system we used YOLOv4
+            Darknet model for detecting number plates as well as for character
+            segmentation. Then the segmented characters are recognized using a
+            CNN model. The recognized license plate number will then be recorded
+            in a database. We expect this system to work well with images. But
+            in case of Video, we obtained very low FPS because we couldn't
+            afford GPU and are using CPU for running the trained model. So Our
+            system may not be used for real time video detection as of now but
+            we are working hard and we will make this system realtime in future.
+            This project was really challenging for us because we were new to
+            this topic and we found very few implementations of such systems in
+            case of Nepal, so we had to prepare dataset ourselves and later
+            trained model on our own dataset. We learned various things from
+            this project and hope this system will be useful for others.
+        </p>
+    </div>
+
+    <div class="row">
+        <h3 class="mt-5">ABOUT US</h3>
+
+        <p>
+            We are students of Khwopa College of Engineering currently studying
+            in 6th semester in Computer Engineering. This project is our minor
+            project for 6th semester.
+        </p>
+    </div>
+
+    <div class="row mt-3">
+        <div class="card col-md-3">
+            <img
+                src="/static/img/KCE075BCT008.jpg"
+                class="card-img-top p-2"
+                alt="..."
+            />
+            <div class="card-body">
+                <h5 class="card-title">Anish Shilpakar</h5>
+                <p class="card-text">CRN: KCE075BCT008</p>
+                <a
+                    href="https://www.linkedin.com/in/anish-shilpakar13/"
+                    class="btn btn-dark"
+                    >LinkedIn</a
+                >
+            </div>
+        </div>
+
+        <div class="card col-md-3">
+            <img
+                src="/static/img/KCE075BCT009.jpg"
+                class="card-img-top p-2"
+                alt="..."
+            />
+            <div class="card-body">
+                <h5 class="card-title">Anjaan Khadka</h5>
+                <p class="card-text">CRN: KCE075BCT009</p>
+                <a
+                    href="https://www.linkedin.com/in/anjaan-khadka-385a401b7/"
+                    class="btn btn-dark"
+                    >LinkedIn</a
+                >
+            </div>
+        </div>
+
+        <div class="card col-md-3">
+            <img
+                src="/static/img/KCE075BCT035.jpg"
+                class="card-img-top p-2"
+                alt="..."
+            />
+            <div class="card-body">
+                <h5 class="card-title">Sachin Manandhar</h5>
+                <p class="card-text">CRN: KCE075BCT035</p>
+                <a
+                    href="https://www.linkedin.com/in/sachin-manandhar-596b93231/"
+                    class="btn btn-dark"
+                    >LinkedIn</a
+                >
+            </div>
+        </div>
+
+        <div class="card col-md-3">
+            <img
+                src="/static/img/KCE075BCT046.jpg"
+                class="card-img-top p-2"
+                alt="..."
+            />
+            <div class="card-body">
+                <h5 class="card-title">Sudip Shreshta</h5>
+                <p class="card-text">CRN: KCE075BCT46</p>
+                <a
+                    href="https://www.linkedin.com/in/sudip-shrestha-89739b1b6/"
+                    class="btn btn-dark"
+                    >LinkedIn</a
+                >
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
