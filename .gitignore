@@ -1,0 +1,4 @@
+media/
+*/__pycache__
+pytorch_YOLOv4/cnn_weights/
+pytorch_YOLOv4/Own_cfg_and_weights
