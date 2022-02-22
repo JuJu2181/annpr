@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container-fluid upload-form">
-    {% if title == 'Image' %}
+    {% if title == 'IMAGE' %}
     <form  class="bg-white p-5 rounded" method = "post" action="{% url 'upload_image' %}" enctype="multipart/form-data">
     {% else %}
     <form  class="bg-white p-5 rounded" method = "post" action="{% url 'upload_video' %}" enctype="multipart/form-data"> 

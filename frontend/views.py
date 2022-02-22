@@ -59,6 +59,12 @@ def upload_image(request):
                 numberplate = NumberPlate()
                 if output_number != '':
                     numberplate.number = output_number
+                    if 'pa' in output_number:
+                        numberplate.vehicle_type = '2-Wheeler'
+                    elif 'cha' in output_number:
+                        numberplate.vehicle_type = '4-Wheeler Medium'
+                    else:
+                        numberplate.vehicle_type = '4-Wheeler'
                     numberplate.save()
                     print("Number Plate Saved")
                 else:
@@ -87,7 +93,6 @@ def upload_video(request):
 
 
 def display_image(request, filename, numbers_count):
-    
     numbers_count = int(numbers_count)
     print(f"filename: {filename}\nNumbers_count:{numbers_count}")
     latest_image = Image.objects.latest('id')
@@ -102,7 +107,8 @@ def display_image(request, filename, numbers_count):
         # 'current_number': current_number_plate.number,
         'current_number_plates': current_number_plates,
         'filename': filename,
-        'title': 'DETECTIONS'
+        'title': 'DETECTIONS',
+        'numbers_count': numbers_count
     }
     return render(request, 'detections/image.html', context)
     

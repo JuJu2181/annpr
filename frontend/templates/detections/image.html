@@ -1,24 +1,25 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container-fluid">
     <div class="row mt-5">
-        <div class="col-md-8">
-            <h3 class>Original:</h3>
-            <img
-                src="{{image.url}}"
-                alt="original_image"
-                width="500"
-                height="500"
-            />
-            <h3 class="mt-5">Detections:</h3>
+        <div class="col-md-7">
+            <h3 class="mt-5">Detections View:</h3>
             <img
                 src="/detected_images/{{filename}}"
                 alt="original_image"
                 width="500"
                 height="500"
             />
+            <h3 class>Original View:</h3>
+            <img
+                src="{{image.url}}"
+                alt="original_image"
+                width="500"
+                height="500"
+            />
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-5">
+            <h4>Number Plates Detection count: {{numbers_count}}</h4>
             <h4>Number Plates Detected: </h4>
             {% for current_number_plate in current_number_plates %}
             <p>{{current_number_plate.number}}</p>
