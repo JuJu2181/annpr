@@ -213,7 +213,7 @@ def detect_cv2_image(YOLO_Detection,YOLO_Seperation,filename):
     
     boxes = detect_cv2_frame(m1,img)
     characters_bbox = detect_characters(m2,img,boxes)
-    
+    output_numbers = []
     for i in range(len(boxes[0])):
             # for box in boxes[0]:
                 box = boxes[0][i]
@@ -254,11 +254,12 @@ def detect_cv2_image(YOLO_Detection,YOLO_Seperation,filename):
                     output_number+=cnn_class_names_en[class_id]
                     # cv2.putText(img,cnn_class_names_en[class_id], (50,50),fontFace=cv2.FONT_HERSHEY_TRIPLEX, fontScale=3, color=(0, 255, 0),thickness=3)
                     # cv2.imwrite(filename, img)
-    print(f"Output Number: {output_number}")
+                output_numbers.append(output_number)
+    print(f"Output Numbers: {output_numbers}")
     cv2.imwrite(f'media\detected_images\\{original_filename}', img)
     # cv2.imshow("Detected",img)
     # cv2.waitKey(0)
-    return output_number
+    return output_numbers
 
 # making this a function so I can then import it in django
 def main_annpr_detector(detector,filename):
@@ -287,8 +288,8 @@ def main_annpr_detector(detector,filename):
     # detect_cv2_video(YOLO_detection,YOLO_seperation,vidfile)
     if detector == 'image': 
         print(f'File: {filename}')
-        output_number = detect_cv2_image(YOLO_detection, YOLO_seperation, filename)
+        output_numbers = detect_cv2_image(YOLO_detection, YOLO_seperation, filename)
     end_time = time.time() 
     total_time = end_time - start_time
     print(f"Total Time Taken: {total_time} sec")
-    return output_number
+    return output_numbers

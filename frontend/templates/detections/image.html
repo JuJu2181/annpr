@@ -19,8 +19,10 @@
         </div>
 
         <div class="col-md-4">
-            <h4>Number Plate Detected: </h4>
-            <p>{{current_number}}</p>
+            <h4>Number Plates Detected: </h4>
+            {% for current_number_plate in current_number_plates %}
+            <p>{{current_number_plate.number}}</p>
+            {% endfor %}
             {% include 'includes/record_table.html' %} 
         </div>
     </div>

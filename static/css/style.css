@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
-    margin: none;
-    padding: none;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     font-family: "Nunito", sans-serif;
 }
@@ -26,18 +26,27 @@ footer {
     /* left: 0;
     bottom: 0; */
     width: 100%;
-    background-color: #272727;
+    background-color: #343A40;
     color: #fffeee;
     text-align: center;
+    padding-top: 1.5rem;
 }
 
 .background-wrapper{
     background: url("/static/img/bg5.jpg") no-repeat center center fixed;
     background-size: cover;
+    padding: 0 !important;
 }
 
 .navbar-brand{
+    font-family: 'Poppins', sans-serif;
     font-weight: 900;
+    transition: all 1s ease-in-out;
+}
+
+.navbar-brand:hover{
+    color: rgb(156, 240, 156) !important;
+    border-bottom: 2px solid white !important;
 }
 
 .image-wrapper {
@@ -48,6 +57,7 @@ footer {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: 0 !important;
 }
 
 .hero-title {
@@ -105,8 +115,8 @@ footer {
 }
 
 .about-content{
-    margin-top: 2rem;
-    padding: 10px;
+    margin: 2rem 0;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -129,4 +139,25 @@ footer {
     font-size: 14px!important;
     color: rgb(9, 48, 9);
     font-weight: 600;
+}
+
+.nav-item{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    padding: 2px;
+    margin-right: 10px;
+}
+
+.active{
+    font-weight: 800;
+    border-bottom: 2px solid white;
+    border-radius: 30px;
+}
+
+.nav-link{
+    transition: all 0.5 ease-out;
+}
+
+.nav-link:hover{
+    color: rgb(156, 240, 156) !important;
 }
