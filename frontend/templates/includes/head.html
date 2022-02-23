@@ -11,15 +11,29 @@
         <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 
         <!-- Bootstrap CSS -->
-        <link
+        {% comment %} <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
             crossorigin="anonymous"
         />
-        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' integrity='sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==' crossorigin='anonymous'/>
+        {% endcomment %}
+
+        
+        <!--Font awesome css-->
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css' integrity='sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==' crossorigin='anonymous'/> 
+        
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        
+        <!-- Bootstrap js-->
+        <!-- Light Box CSS -->
+        <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
+
+        <!--JS related to lightbox-->
+        <script src="{% static 'js/lightbox-plus-jquery.min.js' %}" defer></script>
+        <script src="{% static 'js/bootstrap.min.js' %}" defer></script>
         <!--Custom JS file -->
-        <script src="{% static 'js/main.js' %}"></script>
+        <script src="{% static 'js/main.js' %}" defer></script>
 
         <title>ANNPR WEB | {{ title }}</title>
     </head>

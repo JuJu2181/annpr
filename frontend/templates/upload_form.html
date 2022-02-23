@@ -10,7 +10,7 @@
     {% csrf_token %}
     <label for="exampleFormControlFile1" class="form-title">Select {{ title  }} </label>
     {{ form.as_p }}
-    <button type="submit" class="btn btn-success mt-3 ">Upload {{ title }} </button>
+    <button type="submit" class="btn btn-success btn-block text-center mt-3 make-capital">Upload {{ title }} </button>
 </form>
 </div>
 {% endblock  %}

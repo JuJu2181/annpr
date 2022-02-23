@@ -7,10 +7,10 @@ def processImage(img):
     # grayscale conversion
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    #eroison
+    #eroison(Morphological Transformation)
     # img = cv2.erode(img,kernel,iterations=1)
 
-    # applying Otsu thresholding
+    # applying Otsu Binary thresholding
     # as an extra flag in binary 
     # thresholding
     # params: source, threshold value, max value, thresholding technique  

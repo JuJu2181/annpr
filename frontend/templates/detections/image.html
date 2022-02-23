@@ -1,29 +1,55 @@
 {% extends 'base.html' %} {% block content %}
 <div class="container-fluid">
-    <div class="row mt-5">
-        <div class="col-md-7">
-            <h3 class="mt-5">Detections View:</h3>
+    <div class="row mt-5 mb-5">
+        <div class="col-md-6">
+            <h3 class="mt-1 title">Detections View:</h3>
+            <a href="http://127.0.0.1:8000/detected_images/{{ filename }}" data-lightbox="{{filename}}" data-title="Detection View for vehicle">
             <img
                 src="/detected_images/{{filename}}"
                 alt="original_image"
-                width="500"
-                height="500"
+                class="image-custom"
+                {% comment %} width="400"
+                height="400" {% endcomment %}
             />
-            <h3 class>Original View:</h3>
+        </a>
+            <h3 class="mt-5 title">Original View:</h3>
+            <a href="http://127.0.0.1:8000/images/{{ filename }}" data-lightbox="{{filename}}" data-title="Original View for vehicle">
             <img
                 src="{{image.url}}"
                 alt="original_image"
-                width="500"
-                height="500"
+                class="image-custom"
+                {% comment %} width="400"
+                height="400" {% endcomment %}
             />
+        </a>
         </div>
 
-        <div class="col-md-5">
-            <h4>Number Plates Detection count: {{numbers_count}}</h4>
-            <h4>Number Plates Detected: </h4>
-            {% for current_number_plate in current_number_plates %}
-            <p>{{current_number_plate.number}}</p>
-            {% endfor %}
+        <div class="col-md-6 pr-5 pt-1">
+            <h3 class="title">Results: </h3>
+            <div class="our-detections">
+                <p class="make-capital">Number Plates Detected: {{numbers_count}}</p>
+                <p class="make-capital">Number Plates Recognized: {{numbers_count}}</p>
+                <p class="make-capital">Currently Recognized Number plates </p>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Number</th>
+                            <th scope="col">Vehicle Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for current_number_plate in current_number_plates %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{current_number_plate.number}}</td>
+                        <td>{{current_number_plate.vehicle_type}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <a href="{% url 'get_image' %}" class="btn btn-warning  make-capital">Detect for another image</a>
             {% include 'includes/record_table.html' %} 
         </div>
     </div>

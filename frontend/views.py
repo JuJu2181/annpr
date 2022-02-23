@@ -43,34 +43,42 @@ def get_video(request):
 
 
 def upload_image(request):
+    valid_first_chars = ['ba','ga','lu']
     if request.method == "POST":
-        form = ImageForm(request.POST, request.FILES)
-        file = request.FILES.get('img')
-        filename = file.name
-        # print(filename)
-        # print(file)
-        if form.is_valid():
-            form.save()
-            output_numbers = main_annpr_detector(
-                detector='image', filename=filename)
-            # print(f'Detected Number: {output_number}')
-            numbers_count = len(output_numbers)
-            for output_number in output_numbers:
-                numberplate = NumberPlate()
-                if output_number != '':
-                    numberplate.number = output_number
-                    if 'pa' in output_number:
-                        numberplate.vehicle_type = '2-Wheeler'
-                    elif 'cha' in output_number:
-                        numberplate.vehicle_type = '4-Wheeler Medium'
+        if len(request.FILES) != 0:
+            form = ImageForm(request.POST, request.FILES)
+            file = request.FILES.get('img')
+            filename = file.name
+            # print(filename)
+            # print(file)
+            if form.is_valid():
+                form.save()
+                output_numbers = main_annpr_detector(
+                    detector='image', filename=filename)
+                # print(f'Detected Number: {output_number}')
+                numbers_count = len(output_numbers)
+                for output_number in output_numbers:
+                    numberplate = NumberPlate()
+                    if output_number != '':
+                        if output_number[0:2] in valid_first_chars:
+                            numberplate.number = output_number
+                            if 'pa' in output_number:
+                                numberplate.vehicle_type = '2-Wheeler'
+                            elif 'cha' in output_number:
+                                numberplate.vehicle_type = '4-Wheeler Medium'
+                            else:
+                                numberplate.vehicle_type = '4-Wheeler'
+                            numberplate.save()
+                            print("Number Plate Saved") 
+                        else:
+                            numbers_count -= 1
                     else:
-                        numberplate.vehicle_type = '4-Wheeler'
-                    numberplate.save()
-                    print("Number Plate Saved")
-                else:
-                    numbers_count -= 1
+                        numbers_count -= 1
 
-            return redirect('display_image', filename, numbers_count)
+                return redirect('display_image', filename, numbers_count)
+        else:
+            print("No file uploaded")
+            return redirect('get_image')
     else:
         return redirect('get_image')
 
