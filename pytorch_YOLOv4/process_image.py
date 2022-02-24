@@ -2,6 +2,15 @@ import cv2
 import numpy as np 
 import os 
 
+"""
+Image PreProcessing Steps
+1) Grayscale conversion
+2) Morphological Transformation(Eroison)
+3) Otsu's Binary Thresholding
+4) Median Blur
+5) Image Resizing
+"""
+
 def processImage(img):
     kernel = np.ones((3,3),np.uint8)
     # grayscale conversion
