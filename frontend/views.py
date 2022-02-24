@@ -54,63 +54,69 @@ def upload_image(request):
             filename = file.name
             # print(filename)
             # print(file)
-            if form.is_valid():
-                form.save()
-                # get output numbers from main_annpr_detector
-                output_numbers = main_annpr_detector(
-                    detector='image', filename=filename)
-                # print(f'Detected Number: {output_number}')
-                detection_count = len(output_numbers)
-                recognition_count = detection_count
-                for output_number in output_numbers:
-                    # creating an object for each detected number plate
-                    numberplate = NumberPlate()
-                    if output_number != '':
-                        # get the starting character
-                        starting_characters = output_number[0:2]
-                        if starting_characters in valid_first_chars:
-                            if 'pa' in output_number:
-                                numberplate.vehicle_type = '2-Wheeler'
-                                middle_characters_position = output_number.find('pa')
-                                middle_characters_count = 2
-                            elif 'cha' in output_number:
-                                numberplate.vehicle_type = '4-Wheeler Medium'
-                                middle_characters_position = output_number.find('cha')
-                                middle_characters_count = 3
-                            else:
-                                numberplate.vehicle_type = '4-Wheeler'
-                            # check if numbers are detected between starting and middle character
-                            if(len(output_number[2:middle_characters_position]) <= 2):
-                                try:
-                                    # check if middle 2 characters are really a number 
-                                    middle_lot_number = int(output_number[2:middle_characters_position])
-                                    # again check for last 4 digits 
-                                    if(len(output_number[middle_characters_position + middle_characters_count:])<= 4):
-                                        ending_number = int(output_number[middle_characters_position+middle_characters_count:])
-                                        print("last 4 digits are  numbers")
-                                        # saving only when all validation matches
-                                        numberplate.number = output_number
-                                        numberplate.save()
-                                        print("Number Plate Saved") 
-                                    else:
-                                        print("More than 4 numbers detected")
+            # check if input file is actually an image 
+            if filename.endswith('.jpg') or filename.endswith('.png') or filename.endswith('.jpeg'):
+                print("File is an Image")
+                if form.is_valid():
+                    form.save()
+                    # get output numbers from main_annpr_detector
+                    output_numbers = main_annpr_detector(
+                        detector='image', filename=filename)
+                    # print(f'Detected Number: {output_number}')
+                    detection_count = len(output_numbers)
+                    recognition_count = detection_count
+                    for output_number in output_numbers:
+                        # creating an object for each detected number plate
+                        numberplate = NumberPlate()
+                        if output_number != '':
+                            # get the starting character
+                            starting_characters = output_number[0:2]
+                            if starting_characters in valid_first_chars:
+                                if 'pa' in output_number:
+                                    numberplate.vehicle_type = '2-Wheeler'
+                                    middle_characters_position = output_number.find('pa')
+                                    middle_characters_count = 2
+                                elif 'cha' in output_number:
+                                    numberplate.vehicle_type = '4-Wheeler Medium'
+                                    middle_characters_position = output_number.find('cha')
+                                    middle_characters_count = 3
+                                else:
+                                    numberplate.vehicle_type = '4-Wheeler'
+                                # check if numbers are detected between starting and middle character
+                                if(len(output_number[2:middle_characters_position]) <= 2):
+                                    try:
+                                        # check if middle 2 characters are really a number 
+                                        middle_lot_number = int(output_number[2:middle_characters_position])
+                                        # again check for last 4 digits 
+                                        if(len(output_number[middle_characters_position + middle_characters_count:])<= 4):
+                                            ending_number = int(output_number[middle_characters_position+middle_characters_count:])
+                                            print("last 4 digits are  numbers")
+                                            # saving only when all validation matches
+                                            numberplate.number = output_number
+                                            numberplate.save()
+                                            print("Number Plate Saved") 
+                                        else:
+                                            print("More than 4 numbers detected")
+                                            recognition_count -= 1
+                                    except:
+                                        print("Character detected instead of number")
                                         recognition_count -= 1
-                                except:
-                                    print("Character detected instead of number")
+                                else:
+                                    print("More than 2 characters detected between starting and middle")
                                     recognition_count -= 1
                             else:
-                                print("More than 2 characters detected between starting and middle")
+                                # this means that first character of recognition was not ba or others from list so it was not properly recognized
                                 recognition_count -= 1
+                                print("Starting character invalid")
                         else:
-                            # this means that first character of recognition was not ba or others from list so it was not properly recognized
+                            # empty string in list '' means that number plate was detected but recognition failed
                             recognition_count -= 1
-                            print("Starting character invalid")
-                    else:
-                        # empty string in list '' means that number plate was detected but recognition failed
-                        recognition_count -= 1
-                        print("No character was recognized")
+                            print("No character was recognized")
 
-                return redirect('display_image', filename, detection_count, recognition_count)
+                    return redirect('display_image', filename, detection_count, recognition_count)
+            else:
+                print("Uploaded file not an image")
+                return redirect('get_image')
         else:
             print("No file uploaded")
             return redirect('get_image')

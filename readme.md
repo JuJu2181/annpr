@@ -8,6 +8,8 @@ YOLOV4 Link: [YOLOV4](https://github.com/AlexeyAB/darknet)
 
 This is simply integrating the models and then testing the models trained by us for user inputs. 
 
+## Setup in your PC 
+
 To run this app correctly first you have to install all the requirements from requirements.txt. Also better use python 3.8.5 as I used the same version
 > pip install -r requirements.txt
 
