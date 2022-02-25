@@ -82,28 +82,31 @@ def upload_image(request):
                                     middle_characters_count = 3
                                 else:
                                     numberplate.vehicle_type = '4-Wheeler'
-                                # check if numbers are detected between starting and middle character
-                                if(len(output_number[2:middle_characters_position]) <= 2):
-                                    try:
-                                        # check if middle 2 characters are really a number 
-                                        middle_lot_number = int(output_number[2:middle_characters_position])
-                                        # again check for last 4 digits 
-                                        if(len(output_number[middle_characters_position + middle_characters_count:])<= 4):
-                                            ending_number = int(output_number[middle_characters_position+middle_characters_count:])
-                                            print("last 4 digits are  numbers")
-                                            # saving only when all validation matches
-                                            numberplate.number = output_number
-                                            numberplate.save()
-                                            print("Number Plate Saved") 
-                                        else:
-                                            print("More than 4 numbers detected")
-                                            recognition_count -= 1
-                                    except:
-                                        print("Character detected instead of number")
-                                        recognition_count -= 1
-                                else:
-                                    print("More than 2 characters detected between starting and middle")
+                                    middle_characters_position = -1
                                     recognition_count -= 1
+                                # check if numbers are detected between starting and middle character
+                                if middle_characters_position != -1:
+                                    if(len(output_number[2:middle_characters_position]) <= 2):
+                                        try:
+                                            # check if middle 2 characters are really a number 
+                                            middle_lot_number = int(output_number[2:middle_characters_position])
+                                            # again check for last 4 digits 
+                                            if(len(output_number[middle_characters_position + middle_characters_count:])<= 4):
+                                                ending_number = int(output_number[middle_characters_position+middle_characters_count:])
+                                                print("last 4 digits are  numbers")
+                                                # saving only when all validation matches
+                                                numberplate.number = output_number
+                                                numberplate.save()
+                                                print("Number Plate Saved") 
+                                            else:
+                                                print("More than 4 numbers detected")
+                                                recognition_count -= 1
+                                        except:
+                                            print("Character detected instead of number")
+                                            recognition_count -= 1
+                                    else:
+                                        print("More than 2 characters detected between starting and middle")
+                                        recognition_count -= 1
                             else:
                                 # this means that first character of recognition was not ba or others from list so it was not properly recognized
                                 recognition_count -= 1
