@@ -8,9 +8,9 @@ class ModelForm1(forms.ModelForm):
 class ImageForm(forms.ModelForm):
     class Meta:
         model= Image
-        fields =['img']
+        exclude =['name','detections_count','recognition_count']
 
 class VideoForm(forms.ModelForm):
     class Meta:
         model = Video
-        fields = ['videofile']
+        exclude =['name','detections_count','recognition_count']
