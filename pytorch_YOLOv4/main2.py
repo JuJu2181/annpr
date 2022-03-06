@@ -289,6 +289,10 @@ def main_annpr_detector(detector,filename):
     if detector == 'image': 
         print(f'File: {filename}')
         output_numbers = detect_cv2_image(YOLO_detection, YOLO_seperation, filename)
+    elif detector == 'video':
+        pass
+    else:
+        print("Invalid Option!")
     end_time = time.time() 
     total_time = end_time - start_time
     print(f"Total Time Taken: {total_time} sec")
