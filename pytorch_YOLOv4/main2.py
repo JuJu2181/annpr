@@ -132,9 +132,11 @@ def detect_video(YOLO_Detection,YOLO_Seperation,video_path):
     height,width,_=frame.shape
     out = cv2.VideoWriter('outpt.avi',cv2.VideoWriter_fourcc('M','J','P','G'), cap.get(cv2.CAP_PROP_FPS),(int(width),int(height)))
     output_numbers = []
+    output_numbers_fraemwise = []
     while ret:
         boxes = detect_cv2_frame(m1,frame)
         characters_boxes = detect_characters(m2,frame,boxes)
+        output_numbers_in_frame = []
         for i in range(len(boxes[0])):
             x1,y1,x2,y2,_,_,_ = number_plate_bbox = boxes[0][i]
             x1,y1,x2,y2 = int(x1*width), int(y1*height), int(x2*width), int(y2*height)
@@ -161,8 +163,12 @@ def detect_video(YOLO_Detection,YOLO_Seperation,video_path):
                     break
             if not exists:
                 output_numbers.append(output_number)
+            output_numbers_in_frame.append(output_number)
         print(f"Output Numbers:{output_number}")
         out.write(frame)
+        
+        output_numbers_fraemwise.append(output_numbers_in_frame)
+        
         
         ret,frame = cap.read()
         try:
@@ -170,6 +176,7 @@ def detect_video(YOLO_Detection,YOLO_Seperation,video_path):
         except:
             break
     print(f"All number_plates Recognized:{output_numbers}")
+    print(f"Number-plates framewise:{output_numbers_fraemwise}")
 
         
 
