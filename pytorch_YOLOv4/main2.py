@@ -117,7 +117,7 @@ def validate_chars_position_main(sorted_list):
             ch_x1,ch_y1,ch_x2,ch_y2 = chars
             x1_sum += ch_x2-ch_x1
         avg_x1 = x1_sum/len(sorted_list)
-        limit = avg_x1*1.37
+        limit = avg_x1*1.75
         for i in range(len(sorted_list)-1):
             prev = sorted_list[i]
             now = sorted_list[i+1]
@@ -252,6 +252,7 @@ def detect_video(YOLO_Detection,YOLO_Seperation,video_path):
         except:
             break
     print(f"All number_plates Recognized:{output_numbers}")
+    return output_numbers
     # print(f"Number-plates framewise:{output_numbers_fraemwise}")
 
         
@@ -603,6 +604,7 @@ def main_annpr_detector(detector,filename):
         return output_numbers
     elif detector == 'video':
         output_numbers = detect_video(YOLO_detection, YOLO_seperation, filename)
+        return output_numbers
     else:
         print("Invalid Option!")
     end_time = time.time() 
