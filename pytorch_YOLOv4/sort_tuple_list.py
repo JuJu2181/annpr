@@ -44,7 +44,7 @@ def sort_tuple_in_list(input_list):
     else:
         output_list = sort_x(input_list)
 
-    return output_list
+    return (output_list,(upper_list_sorted,lower_list_sorted,check_2_row))
 
 # list = [(377, 292, 412, 344), (413, 292, 448, 343), (153, 286, 204, 338), (340,294, 377, 343), (216, 288, 252, 339), (449, 290, 488, 348), (252, 287, 288, 341), (293, 291, 330, 342)]
 

@@ -69,6 +69,73 @@ def detect_characters(m1,cv2_image,boxes):
     # # cv2.imshow("Cv2_image",cv2_image) 
     return allcharacters
 
+def validate_numberplate(output_string):
+    np = list(output_string)
+    if output_string == '':
+        return False
+    if np[0]!='b':
+        return False
+    chars = [],[],[],[]
+    # num_flag can have value 1 or 3; 1 --> vehicle lot and 3 --> vehicle number
+    num_flag = 1
+    for i in range(len(np)):
+        ch = np[i]
+        try: 
+            chars[num_flag].append(int(ch))
+        except:
+            if ch == 'b':
+                chars[0].append('ba')
+            elif num_flag == 1:
+                if ch == 'p':
+                    chars[2].append('pa')
+                    num_flag = 3
+                elif ch == 'c':
+                    chars[2].append('cha')
+                    num_flag = 3
+        
+    # print(chars)
+
+    if len(chars[0]) == 0 or len(chars[0]) > 1:
+        return False
+    if len(chars[1]) == 0 or len(chars[1]) > 2:
+        return False
+    if len(chars[2]) == 0 or len(chars[2]) > 1:
+        return False
+    if len(chars[3]) == 0 or len(chars[3]) > 4:
+        return False
+    number_plate =  chars[0]+chars[1]+chars[2]+chars[3]  
+    number_plate = ''.join([str(elem) for elem in number_plate])
+    return(number_plate)
+
+
+# This is portion to reject numberplates where
+def validate_chars_position_main(sorted_list):
+    if len(sorted_list)>3:
+        x1 = sorted_list[0][0]
+        x1_sum = 0
+        for chars in sorted_list:
+            ch_x1,ch_y1,ch_x2,ch_y2 = chars
+            x1_sum += ch_x2-ch_x1
+        avg_x1 = x1_sum/len(sorted_list)
+        limit = avg_x1*1.37
+        for i in range(len(sorted_list)-1):
+            prev = sorted_list[i]
+            now = sorted_list[i+1]
+            if abs(prev[0]-now[0])>limit:
+                print("invalid")
+                return False
+    return sorted_list
+    
+def validate_chars_position(segmented_characters,list_sorted):
+    upper_list,lower_list,is_2_row = list_sorted
+    if is_2_row:
+        if not (validate_chars_position_main(upper_list) or validate_chars_position_main(lower_list)):
+            segmented_characters = []
+    else:
+        if not validate_chars_position_main(segmented_characters):
+            segmented_characters = []
+    return segmented_characters
+
 
 
 def detect_video(YOLO_Detection,YOLO_Seperation,video_path):
@@ -140,8 +207,14 @@ def detect_video(YOLO_Detection,YOLO_Seperation,video_path):
         for i in range(len(boxes[0])):
             x1,y1,x2,y2,_,_,_ = number_plate_bbox = boxes[0][i]
             x1,y1,x2,y2 = int(x1*width), int(y1*height), int(x2*width), int(y2*height)
-            segmented_charcters = sort_tuple_in_list(characters_boxes[i])
+            segmented_charcters,list_sorted = sort_tuple_in_list(characters_boxes[i])
             output_number = ""
+            
+            segmented_charcters =  validate_chars_position(segmented_charcters,list_sorted)                
+            # This portion ends here
+            
+            
+            
             for individual_char in segmented_charcters:
                 ch_x1,ch_y1,ch_x2,ch_y2 = individual_char
                 croped_char = frame[ch_y1:ch_y2,ch_x1:ch_x2]
@@ -157,17 +230,20 @@ def detect_video(YOLO_Detection,YOLO_Seperation,video_path):
                 output_number+=cnn_class_names_en[class_id]
             frame = cv2.rectangle(frame,(x1,y1),(x2,y2),(0,0,255),2)
             exists = False
+            
             for items in output_numbers:
                 if output_number == items:
                     exists = True
                     break
+            result = validate_numberplate(output_number)
             if not exists:
-                output_numbers.append(output_number)
+                if result: 
+                    output_numbers.append(result)
             output_numbers_in_frame.append(output_number)
         print(f"Output Numbers:{output_number}")
         out.write(frame)
         
-        output_numbers_fraemwise.append(output_numbers_in_frame)
+        # output_numbers_fraemwise.append(output_numbers_in_frame)
         
         
         ret,frame = cap.read()
@@ -176,7 +252,7 @@ def detect_video(YOLO_Detection,YOLO_Seperation,video_path):
         except:
             break
     print(f"All number_plates Recognized:{output_numbers}")
-    print(f"Number-plates framewise:{output_numbers_fraemwise}")
+    # print(f"Number-plates framewise:{output_numbers_fraemwise}")
 
         
 
@@ -434,6 +510,7 @@ def detect_cv2_image(YOLO_Detection,YOLO_Seperation,filename):
     m1.load_weights(weightfile)
     m2.load_weights(weightfile_sep) 
     
+    print(f"=---------------{image_path}-----------")
     img = cv2.imread(image_path)
     # print(img)
     img = cv2.resize(img,(800,600))
@@ -448,7 +525,13 @@ def detect_cv2_image(YOLO_Detection,YOLO_Seperation,filename):
         x1,y1,x2,y2,cf,_,_ = box
         x1,y1,x2,y2 = int(x1*width),int(y1*height),int(x2*width),int(y2*height)
         img = cv2.rectangle(img,(x1,y1),(x2,y2),(0,0,255),2)
-        segmented_characters = sort_tuple_in_list(characters_bbox[i]) 
+        segmented_characters,sorted_list = sort_tuple_in_list(characters_bbox[i]) 
+        
+        
+        segmented_characters = validate_chars_position(segmented_characters,sorted_list)
+        
+        
+        
         # segmented_characters = characters_bbox[i]
         # print(segmented_characters)
         output_number = ""
@@ -517,6 +600,7 @@ def main_annpr_detector(detector,filename):
     if detector == 'image': 
         print(f'File: {filename}')
         output_numbers = detect_cv2_image(YOLO_detection, YOLO_seperation, filename)
+        return output_numbers
     elif detector == 'video':
         output_numbers = detect_video(YOLO_detection, YOLO_seperation, filename)
     else:
@@ -524,5 +608,5 @@ def main_annpr_detector(detector,filename):
     end_time = time.time() 
     total_time = end_time - start_time
     print(f"Total Time Taken: {total_time} sec")
-    # return output_numbers
+    
 

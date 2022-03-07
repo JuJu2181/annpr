@@ -13,6 +13,7 @@ A minimal PyTorch implementation of YOLOv4.
 - [x] Inference
 - [x] Train
     - [x] Mosaic
+lkjf
 
 ```
 ├── README.md

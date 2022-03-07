@@ -58,6 +58,9 @@ def upload_image(request):
             if filename.endswith('.jpg') or filename.endswith('.png') or filename.endswith('.jpeg'):
                 print("File is an Image")
                 if form.is_valid():
+                    # saving form and number plate image at end 
+                    number_plate_image = form.save(commit=False)
+                    number_plate_image.save()
                     # form.save()
                     # get output numbers from main_annpr_detector
                     output_numbers = main_annpr_detector(
@@ -116,8 +119,7 @@ def upload_image(request):
                             recognition_count -= 1
                             print("No character was recognized")
 
-                    # saving form and number plate image at end 
-                    number_plate_image = form.save(commit=False)
+                    
                     number_plate_image.name = filename
                     number_plate_image.detections_count = detection_count
                     number_plate_image.recognition_count = recognition_count
