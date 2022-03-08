@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render
 from .models import NumberPlate, Image, Video, VideoNumberPlate
 from .forms import ModelForm1, ImageForm, VideoForm
 from pytorch_YOLOv4.main2 import main_annpr_detector
+from pytorch_YOLOv4.validate_vid_number import validate_vid_number
 
 
 def index(request):
@@ -140,13 +141,38 @@ def upload_video(request):
         form = VideoForm(request.POST, request.FILES)
         file = request.FILES.get('video')
         filename = file.name
+        print(f'Filename: {filename}')
         if filename.endswith('.mp4') or filename.endswith('.avi'):
-            print('File is a video')
+            print(f' {filename} File is a video')
             if form.is_valid():
-                # form.save()
                 number_plate_video = form.save(commit=False)
                 number_plate_video.name = filename
                 number_plate_video.save()
+                output_numbers = main_annpr_detector(detector='video', filename=filename)
+                print(f"Before: {output_numbers}")
+                output_numbers = validate_vid_number(output_numbers)
+                print(f"After: {output_numbers}")
+                detection_count = len(output_numbers)
+                recognition_count = detection_count
+                print(f'Detected: {detection_count}')
+                print(f'Recognized: {recognition_count}')
+                for output_number in output_numbers:
+                    # creating an object for each detected number plate
+                    numberplate = VideoNumberPlate()
+                    numberplate.number = output_number
+                    if 'pa' in output_number:
+                        numberplate.vehicle_type = '2-Wheeler'
+                    elif 'cha' in output_number:
+                        numberplate.vehicle_type = '4-Wheeler-Medium'
+                    else:
+                        numberplate.vehicle_type = '4-Wheeler'
+                    numberplate.save()
+                    print("Number Plate Saved") 
+        
+                number_plate_video.detections_count = detection_count
+                number_plate_video.recognition_count = recognition_count
+                number_plate_video.save()
+
                 return redirect('display_video')
         else:
             print('File not a video')
@@ -187,14 +213,20 @@ def display_video(request):
     # getting video details from database 
     video = latest_video.video
     filename = latest_video.name 
+    detection_count = latest_video.detections_count
+    recognition_count = latest_video.recognition_count
     # get last 10 number plates from database
-    number_plate = VideoNumberPlate.objects.all()[::-1][0:10]
+    number_plates = VideoNumberPlate.objects.all()[::-1][0:10]
     # get current number plates from the database
-    # current_number_plates = number_plates[0:recognition_count]
+    current_number_plates = number_plates[0:recognition_count]
     context = {
         'video': video,
-        'number_plate': number_plate,
-        'filename': filename
+        'number_plates': number_plates,
+        'current_number_plates': current_number_plates,
+        'filename': filename,
+        'title': 'DETECTIONS',
+        'detection_count': detection_count,
+        'recognition_count': recognition_count
     }
 
     return render(request, 'detections/video.html', context)
