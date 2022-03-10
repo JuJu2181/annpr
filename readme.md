@@ -8,9 +8,12 @@ YOLOV4 Link: [YOLOV4](https://github.com/AlexeyAB/darknet)
 
 This is simply integrating the models and then testing the models trained by us for user inputs. 
 
+____
 ## Setup in your PC 
 
-To run this app correctly first you have to install all the requirements from requirements.txt. Also better use python 3.8.5 as I used the same version
+To run this app correctly first you have to install all the requirements from requirements.txt.  
+Also better use python 3.8.5 as I used the same version  
+Python 3.8.5 Link: [Python 3.8.5](https://www.python.org/downloads/release/python-385/)
 > pip install -r requirements.txt
 
 Then download and add these two folders Own_cfg_and_weights and cnn_weights inside pytorch_YOLOv4 folder 
@@ -41,8 +44,13 @@ media folder: [Media Folder](https://drive.google.com/drive/folders/1LzcASbA5DW8
 To run webapp run command 
 > python manage.py runserver
 
+***
 ## Developed By
 [Anish Shilpakar](https://github.com/JuJu2181)  
 [Anjaan Khadka](https://github.com/AnjaanKhadka)  
 [Sudip Shrestha](https://github.com/sudips413)  
 [Sachin Manandhar](https://github.com/sachin035) 
+
+
+***
+*Feel Free to contact us if you want to know more about how we trained and integrated these models.*
