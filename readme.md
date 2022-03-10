@@ -36,3 +36,9 @@ annpr(root diretory):
 
 To run webapp run command 
 > python manage.py runserver
+
+## Developed By
+[Anish Shilpakar](https://github.com/JuJu2181)  
+[Anjaan Khadka](https://github.com/AnjaanKhadka)  
+[Sudip Shrestha](https://github.com/sudips413)  
+[Sachin Manandhar](https://github.com/sachin035) 
