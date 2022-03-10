@@ -201,9 +201,9 @@ def detect_video(YOLO_Detection,YOLO_Seperation,filename):
     height,width,_=frame.shape
     # fps
     # original
-    fps = cap.get(cv2.CAP_PROP_FPS)
+    fps = int(cap.get(cv2.CAP_PROP_FPS))
     # 6 fps
-    fps = 6
+    # fps = 6
     # fourcc=cv2.VideoWriter_fourcc('M','J','P','G') # For avi
     # fourcc = cv2.VideoWriter_fourcc('F','M','P','4') #for mp4
     # fourcc = cv2.VideoWriter_fourcc(*'mp4v') # For mp4
