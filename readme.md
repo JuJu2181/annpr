@@ -35,7 +35,8 @@ annpr(root diretory):
 or simply download the media folder from here:
 media folder: [Media Folder](https://drive.google.com/drive/folders/1LzcASbA5DW8-vVd7g-R2D-Eun3sPSdVe?usp=sharing)
 
-
+### Your folders should look like this 
+![Folder Structure](folder_structure.png)
 
 To run webapp run command 
 > python manage.py runserver
