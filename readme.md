@@ -32,6 +32,9 @@ annpr(root diretory):
     - cnn_weights(Create a new folder with this name and add the downloaded weights from above)
     - Own_cfg_and_weights(Create a new folder with this name and add the downloaded weights from above)
 
+or simply download the media folder from here:
+media folder: [Media Folder](https://drive.google.com/drive/folders/1LzcASbA5DW8-vVd7g-R2D-Eun3sPSdVe?usp=sharing)
+
 
 
 To run webapp run command 
