@@ -5,6 +5,10 @@ implement this in python
 """
 def validate_vid_number(input_list):
     output_list = []
+
+    if len(input_list) <= 0:
+        return input_list
+
     list_len = len(input_list)
     x = input_list[0]
     for i in range(list_len):
