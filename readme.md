@@ -22,13 +22,14 @@ Own_cfg_and_weights Link: [YOLO Weights and CFG](https://drive.google.com/drive/
 
 cnn_weights: [CNN Weights](https://drive.google.com/drive/folders/1py_ITQW1UGr5kQUSYCiwBh-C6Mw8M3cI?usp=sharing)
 
-Also Create a folder called media in this root directory of project and inside media create another 3 folders detected_images, images, videos  
+Also Create a folder called media in this root directory of project and inside media create another 4 folders detected_images, detected_videos, images, videos  
 Use this format:  
 annpr(root diretory):
 - annpr
 - frontend 
 - media(new folder you created)
-    - detected_images (create these 3 folders too inside media)
+    - detected_images (create these 4 folders too inside media)
+    - detected_videos
     - images
     - videos
 - pytorch_YOLOv4
