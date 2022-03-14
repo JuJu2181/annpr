@@ -46,7 +46,6 @@ media folder: [Media Folder](https://drive.google.com/drive/folders/1LzcASbA5DW8
 > python manage.py runserver
 
 <hr>
-<br>
 
 ## Home Page UI
 
