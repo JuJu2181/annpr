@@ -42,8 +42,22 @@ media folder: [Media Folder](https://drive.google.com/drive/folders/1LzcASbA5DW8
 ### Your folders should look like this 
 ![Folder Structure](folder_structure.png)
 
-To run webapp run command 
+## To run webapp run command 
 > python manage.py runserver
+
+<hr>
+<br>
+
+## Home Page UI
+
+![Home Page](homepage.jpg)
+
+## Output Results 
+### For an Image 
+![Output For Image](output_ss1.png)
+
+### For a Video
+![Output Video](output2.gif)
 
 ***
 ## Developed By
