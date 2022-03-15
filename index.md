@@ -1,37 +1,68 @@
-## Welcome to GitHub Pages
+# Automatic Nepali Number Plate Recognition System (ANNPR)
 
-You can use the [editor on GitHub](https://github.com/JuJu2181/annpr/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+ANNPR is a system that detects Nepali number plates from vehicles and then recognizes the number in the number plates. This project was done as a minor project in 6th Semester for Computer Engineering.  
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+We have used YOLOv4 for number plate detection, also YOLOv4 for character segmentation and CNN for character recognition and then finally integrated all the models with django webapp for user interaction.
 
-### Markdown
+YOLOV4 Link: [YOLOV4](https://github.com/AlexeyAB/darknet)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+This is simply integrating the models and then testing the models trained by us for user inputs. 
 
-```markdown
-Syntax highlighted code block
+____
+## Setup in your PC 
 
-# Header 1
-## Header 2
-### Header 3
+To run this app correctly first you have to install all the requirements from requirements.txt.  
+Also better use python 3.8.5 as I used the same version  
+Python 3.8.5 Link: [Python 3.8.5](https://www.python.org/downloads/release/python-385/)
+> pip install -r requirements.txt
+Then download and add these two folders Own_cfg_and_weights and cnn_weights inside pytorch_YOLOv4 folder 
 
-- Bulleted
-- List
+Own_cfg_and_weights Link: [YOLO Weights and CFG](https://drive.google.com/drive/folders/1Q6TspUqPyHtS67Ziu_tYBIcSFCsOrTMT?usp=sharing)
 
-1. Numbered
-2. List
+cnn_weights: [CNN Weights](https://drive.google.com/drive/folders/1py_ITQW1UGr5kQUSYCiwBh-C6Mw8M3cI?usp=sharing)
 
-**Bold** and _Italic_ and `Code` text
+Also Create a folder called media in this root directory of project and inside media create another 4 folders detected_images, detected_videos, images, videos  
+Use this format:  
+annpr(root diretory):
+- annpr
+- frontend 
+- media(new folder you created)
+    - detected_images (create these 4 folders too inside media)
+    - detected_videos
+    - images
+    - videos
+- pytorch_YOLOv4
+    - cnn_weights(Create a new folder with this name and add the downloaded weights from above)
+    - Own_cfg_and_weights(Create a new folder with this name and add the downloaded weights from above)
 
-[Link](url) and ![Image](src)
-```
+or simply download the media folder from here:
+media folder: [Media Folder](https://drive.google.com/drive/folders/1LzcASbA5DW8-vVd7g-R2D-Eun3sPSdVe?usp=sharing)
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+### Your folders should look like this 
+![Folder Structure](folder_structure.png)
 
-### Jekyll Themes
+## To run webapp run command 
+> python manage.py runserver
+<hr>
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/JuJu2181/annpr/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+## Home Page UI
 
-### Support or Contact
+![Home Page](homepage.jpg)
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+## Output Results 
+### For an Image 
+![Output For Image](output_ss1.png)
+
+### For a Video
+![Output Video](output2.gif)
+
+***
+## Developed By
+[Anish Shilpakar](https://github.com/JuJu2181)  
+[Anjaan Khadka](https://github.com/AnjaanKhadka)  
+[Sudip Shrestha](https://github.com/sudips413)  
+[Sachin Manandhar](https://github.com/sachin035) 
+
+
+***
+*Feel Free to contact us if you want to know more about how we trained and integrated these models.*
