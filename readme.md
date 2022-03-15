@@ -14,8 +14,9 @@ ____
 To run this app correctly first you have to install all the requirements from requirements.txt.  
 Also better use python 3.8.5 as I used the same version  
 Python 3.8.5 Link: [Python 3.8.5](https://www.python.org/downloads/release/python-385/)
-> pip install -r requirements.txt
-
+```
+pip install -r requirements.txt
+```
 Then download and add these two folders Own_cfg_and_weights and cnn_weights inside pytorch_YOLOv4 folder 
 
 Own_cfg_and_weights Link: [YOLO Weights and CFG](https://drive.google.com/drive/folders/1Q6TspUqPyHtS67Ziu_tYBIcSFCsOrTMT?usp=sharing)
@@ -43,8 +44,9 @@ media folder: [Media Folder](https://drive.google.com/drive/folders/1LzcASbA5DW8
 ![Folder Structure](folder_structure.png)
 
 ## To run webapp run command 
-> python manage.py runserver
-
+```
+python manage.py runserver
+```
 <hr>
 
 ## Home Page UI
