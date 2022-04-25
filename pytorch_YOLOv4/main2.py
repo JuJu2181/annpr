@@ -183,11 +183,11 @@ def detect_video(YOLO_Detection,YOLO_Seperation,filename):
     m1 = Darknet(cfgfile)
     m2 = Darknet(cfgfile_sep)
 
-    m3_json = open('pytorch_YOLOv4/cnn_weights/model_lenet_100.json','r')
+    m3_json = open('pytorch_YOLOv4/cnn_weights/model_lenet_200_25.json','r')
     loaded_m3_json = m3_json.read()
     m3_json.close() 
     m3 = model_from_json(loaded_m3_json)
-    m3.load_weights('pytorch_YOLOv4/cnn_weights/model_lenet_100.h5')
+    m3.load_weights('pytorch_YOLOv4/cnn_weights/model_lenet_200_25.h5')
 
 
     # m2.print_network()
@@ -322,11 +322,11 @@ def detect_cv2_image(YOLO_Detection,YOLO_Seperation,filename):
     
     m1 = Darknet(cfgfile)
     m2 = Darknet(cfgfile_sep)
-    m3_json = open('pytorch_YOLOv4/cnn_weights/model_lenet_100.json','r')
+    m3_json = open('pytorch_YOLOv4/cnn_weights/model_lenet_200_25.json','r')
     loaded_m3_json = m3_json.read()
     m3_json.close() 
     m3 = model_from_json(loaded_m3_json)
-    m3.load_weights('pytorch_YOLOv4/cnn_weights/model_lenet_100.h5')
+    m3.load_weights('pytorch_YOLOv4/cnn_weights/model_lenet_200_25.h5')
 
     print("Model has been loaded from disk")
 
